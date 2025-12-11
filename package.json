@@ -1,0 +1,12 @@
+{
+  "name": "taskdelegator",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && nodemon server.js",
+    "frontend": "live-server frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
+}
