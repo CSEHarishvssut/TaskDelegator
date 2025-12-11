@@ -56,6 +56,7 @@ Remember, the goal is both to contribute and to learn. Don't hesitate to ask que
 
 We expect all contributors to adhere to our Code of Conduct. Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before participating.
 --->
+**USE npm start to start the development server**
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
