@@ -1,40 +1,37 @@
-function buildEmail(){
-    const name=document.getElementById("name").value;
-    const pos=document.getElementById("position").value;
-    const status=document.querySelector("input[name='status']:checked").value;
+function showStatusMsg() {
+  const status = document.querySelector("input[name='status']:checked").value;
+  const msg = document.getElementById("statusMsg");
 
-    let txt="";
-
-    if(status==="selected"){
-        txt = `Dear ${name},
-
-Congratulations! You are selected for the position ${pos}.
-
-Regards,
-HR Team`;
-    } else {
-        txt = `Dear ${name},
-
-Thank you for applying for ${pos}.
-Unfortunately we moved forward with other candidates.
-
-Regards,
-HR Team`;
-    }
-
-    document.getElementById("preview").value=txt;
+  if (status === "selected") {
+    msg.innerText = "🟢 Selection email will be sent to the candidate.";
+  } else {
+    msg.innerText = "🔴 Rejection email will be sent to the candidate.";
+  }
 }
 
-async function sendEmail(){
-    const email=document.getElementById("email").value;
-    const message=document.getElementById("preview").value;
+async function sendEmail() {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const position = document.getElementById("position").value;
+  const statusInput = document.querySelector("input[name='status']:checked");
+  const msgBox = document.getElementById("msg");
 
-    const res=await fetch("http://localhost:3000/send",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({email,message})
-    });
+  if (!name || !email || !position || !statusInput) {
+    msgBox.innerText = "⚠️ Please fill all fields";
+    return;
+  }
 
-    let data=await res.json();
-    document.getElementById("msg").innerHTML=data.msg;
+  const response = await fetch("http://localhost:3000/send", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name,
+      email,
+      position,
+      status: statusInput.value
+    })
+  });
+
+  const data = await response.json();
+  msgBox.innerText = data.msg;
 }
